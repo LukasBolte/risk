@@ -1,0 +1,42 @@
+{% block title %}
+Agreement With Statements 
+{% endblock %}
+
+{% block content %}
+
+{{ if session.config.development }}
+    <button class="btn btn-danger otree-btn-next" style="float: right;">Skip</button>
+{{ endif }}
+
+<p>
+    Great, thank you! 
+</p>
+
+<p>
+    We would now like you to read the following two statements and indicate whether you agree or disagree with them.
+</p>
+
+<p>
+    "When choosing a lottery, I am generally concerned about how I feel when the outcome of the lottery is revealed: the happiness from winning and the disappointment from losing."
+</p>
+
+{{ formfield 'agreement_emotions' }}
+
+<p>
+    "When choosing a lottery, I am generally concerned about how useful the different payoffs would be for me."
+</p>
+
+{{ formfield 'agreement_outcomes' }}
+
+
+<button style="float: right" class="otree-btn-next btn btn-primary">Next</button> &emsp;
+
+{% endblock %}
+
+{% block styles %}
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

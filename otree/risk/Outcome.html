@@ -1,0 +1,24 @@
+{{ block title }}
+Implementation
+{{ endblock }}
+
+{{ block content }}
+
+{{ if session.config.development }}
+    <button class="btn btn-danger otree-btn-next" style="float: right;">Skip</button>
+{{ endif }}
+
+<p>
+    Your decisions were not randomly chosen to be implemented. However, be assured that your answers are still incredibly helpful for our research. Thank you!
+</p>
+
+<button style="float: right" class="btn btn-primary btn-large">Next</button>
+
+{% endblock %}
+
+{% block styles %}
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

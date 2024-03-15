@@ -1,0 +1,47 @@
+{% block title %}
+DECISION 2: Other Participant
+
+{% endblock %}
+
+{% block content %}
+
+{{ if session.config.development }}
+    <button class="btn btn-danger otree-btn-next" style="float: right;">Skip</button>
+{{ endif }}
+
+<p>
+What do you need to know about the OTHER PARTICIPANT? 
+</p>
+
+<ul>
+<li>
+We recruited them on Prolific, just like you.</li>
+<li>They know that someone else is choosing a lottery for them from the list above. </li>
+<li>They do not know that you specifically are choosing it.</li>
+</ul>
+
+<p>
+IMPORTANTLY: If DECISION 2 is implemented, we WILL TELL YOU whether the coin came up “HIGH” or “LOW.” Thus, you WILL LEARN the OTHER PARTICIPANT’s payoff. 
+</p>
+
+<p>
+This is important, so let us repeat it: 
+</p>
+<p class="text-center">
+If DECISION 2 is implemented, you WILL LEARN the OTHER PARTICIPANT’s payoff. 
+</p>
+<p>
+We will next ask you some questions to make sure you understand the instructions. You must answer these questions correctly before continuing. 
+</p>
+
+<button style="float: right" class="btn btn-primary btn-large">Next</button>
+
+{% endblock %}
+
+{% block styles %}
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

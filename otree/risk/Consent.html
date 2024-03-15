@@ -1,0 +1,31 @@
+{{ block title }}
+Consent
+{{ endblock }}
+
+{{ block content }}
+
+{{ if session.config.development }}
+    <button class="btn btn-danger otree-btn-next" style="float: right;">Skip</button>
+{{ endif }}
+
+<p>
+    If you agree to participate in this study, please click "Yes, I agree" and "Next."
+</p>
+
+<button type="button" class="btn btn1 btn-primary" onclick="proceed()">Yes, I Agree</button>
+<button style="float: right" class="btn btn-primary btn-large" disabled id="id_next_button">Next</button>
+
+{% endblock %}
+
+{% block styles %}
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function proceed(){
+        y = document.getElementById("id_next_button")
+        y.removeAttribute("disabled");
+    }
+</script>
+{% endblock %}

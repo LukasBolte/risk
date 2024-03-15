@@ -1,0 +1,107 @@
+{% block title %}
+DECISION 1: Instructions
+{% endblock %}
+
+{% block content %}
+
+{{ if session.config.development }}
+    <button class="btn btn-danger otree-btn-next" style="float: right;">Skip</button>
+{{ endif }}
+
+<p>
+    You will first choose a LOTTERY for yourself! 
+</p>
+
+<p>
+    The computer will flip a virtual coin with sides "HIGH" and "LOW," as depicted below. 
+</p>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-12 text-center">
+            <img src="{% static 'img/coin_blue_high.png' %}"  alt="a blue coin that says 'high'" class="img-fluid" style="max-width: 10%; height: auto; margin-right: 10px;">
+            <img src="{% static 'img/coin_blue_low.png' %}" alt="a blue coin that says 'low'" class="img-fluid" style="max-width: 10%; height: auto; margin-left: 10px;">
+        </div>
+    </div>
+</div>
+
+<p>
+    Both sides are equally likely to come up. 
+</p>
+
+<p>
+    On the next page, we will ask you to choose from lotteries that differ in their payoffs for each side of the coin. The lotteries available are:
+</p>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <table id="lotteryTable" class="table">
+                <thead>
+                    <tr>
+                        <th>Lottery</th>
+                        <th>Payoff for "Low"</th>
+                        <th>Payoff for "High"</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Table body will be populated dynamically with JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<p>
+    For example, if you choose LOTTERY A, your payoff will be $28, regardless of which side of the coin comes up. And if you choose LOTTERY F, your payoff will be $2 if side "LOW" comes up and $70 if side "HIGH" comes up. 
+</p>
+<p>
+    Unfortunately, we cannot actually pay everyone the lottery&mdash;it is just too expensive. Instead, we will randomly pick some participants from all our participants and have one of their decisions implemented. This is true for DECISION 1&mdash;choosing a lottery&mdash;and for all other decisions of the study. 
+</p>
+
+<p>
+    We will tell you at the end of the study whether one of your decisions is implemented and, if so, which one. If DECISION 1 is implemented, we will pay you the payoff associated with the outcome of the lottery as a bonus. So choose wisely! 
+</p>
+
+<button style="float: right" class="btn btn-primary btn-large">Next</button>
+
+{% endblock %}
+
+{% block styles %}
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+    // Define the dollar values for each lottery
+    var lotteryData = {{ LOTTERY_DATA|safe }} 
+
+    // Function to populate the table with data
+    function populateTable() {
+        var tbody = document.querySelector('#lotteryTable tbody');
+
+        lotteryData.forEach(function(entry) {
+            var row = document.createElement('tr');
+
+            var lotteryCell = document.createElement('td');
+            lotteryCell.textContent = entry.lottery;
+            row.appendChild(lotteryCell);
+
+            var lowPayoffCell = document.createElement('td');
+            lowPayoffCell.textContent = entry.lowPayoff;
+            row.appendChild(lowPayoffCell);
+
+            var highPayoffCell = document.createElement('td');
+            highPayoffCell.textContent = entry.highPayoff;
+            row.appendChild(highPayoffCell);
+
+            tbody.appendChild(row);
+        });
+    }
+
+    // Call the function to populate the table on page load
+    window.onload = populateTable;
+</script>
+
+{% endblock %}

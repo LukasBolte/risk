@@ -1,0 +1,161 @@
+{% block title %}
+DECISION 3: Instructions
+{% endblock %}
+
+{% block content %}
+
+{{ if session.config.development }}
+    <button class="btn btn-danger otree-btn-next" style="float: right;">Skip</button>
+{{ endif }}
+
+<p>
+    You will next choose one more lottery for ANOTHER PARTICIPANT! 
+</p>
+
+<p>
+    Everything is as before&mdash;with one exception we tell you about on the next page. 
+</p>
+
+<ul>
+    <li>
+        A computer will flip a (different) virtual coin, where both sides are equally likely.
+    </li>
+    <li>
+        You choose from a list of lotteries.
+    </li>
+    <li>
+        The OTHER PARTICIPANT will get the payoff associated with the side that comes up.
+    </li>
+    <li>
+        The OTHER PARTICIPANT is also recruited on Prolific, knows that someone else is choosing a lottery for them from the list above, but does not know that it is you specifically choosing it.
+    </li>
+</ul>
+
+<p>
+    Click here to read the details again 
+</p>
+
+<div class="col-md-12 text-center">
+    <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#exampleModal">Details</button>
+</div>
+
+   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Details</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>
+            The computer will flip a different virtual coin that also has sides "HIGH" and "LOW," as depicted below. 
+        </p>
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12 text-center">
+                    <img src="{% static 'img/coin_dark_high.png' %}"  alt="a dark coin that says 'high'" class="img-fluid" style="max-width: 10%; height: auto; margin-right: 10px;">
+                    <img src="{% static 'img/coin_dark_low.png' %}" alt="a dark coin that says 'low'" class="img-fluid" style="max-width: 10%; height: auto; margin-left: 10px;">
+                </div>
+            </div>
+        </div>
+
+        <p>
+            Both sides are again equally likely to come up. 
+        </p>
+
+        <p>
+            On the next page, we ask you to choose from lotteries that differ in their payoffs for each side of the coin---as before. The lotteries available are:
+        </p>
+
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <table id="lotteryTable" class="table">
+                        <thead>
+                            <tr>
+                                <th>Lottery</th>
+                                <th>Payoff for "Low"</th>
+                                <th>Payoff for "High"</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Table body will be populated dynamically with JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <p>
+            For example, if you choose LOTTERY A, the OTHER PARTICIPANT’s payoff will be $28 regardless of which side of the coin comes up. And if you choose LOTTERY F, the OTHER PARTICIPANT’s payoff will be $2 if side "LOW" comes up and $70 if side "HIGH" comes up. 
+        </p>
+        <p>
+            Remember, we will tell you at the end of the study whether one of your decisions is implemented and, if so, which one. If DECISION 3 is implemented, we will pay the OTHER PARTICIPANT the payoff associated with the outcome of the lottery as a bonus. So choose wisely!
+        </p>
+
+        <p>
+            What do you need to know about the OTHER PARTICIPANT? 
+        </p>
+
+        <ul>
+            <li>
+                We recruited them on Prolific, just like you.
+            </li>
+            <li>
+                They know that someone else is choosing a lottery for them from the list above.  
+            </li>
+            <li>
+                They do not know that you specifically are choosing it.
+            </li>
+        </ul>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button style="float: right" class="btn btn-primary btn-large">Next</button>
+
+{% endblock %}
+
+{% block styles %}
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+    // Define the dollar values for each lottery
+    var lotteryData = {{ LOTTERY_DATA|safe }} 
+
+    // Function to populate the table with data
+    function populateTable() {
+        var tbody = document.querySelector('#lotteryTable tbody');
+
+        lotteryData.forEach(function(entry) {
+            var row = document.createElement('tr');
+
+            var lotteryCell = document.createElement('td');
+            lotteryCell.textContent = entry.lottery;
+            row.appendChild(lotteryCell);
+
+            var lowPayoffCell = document.createElement('td');
+            lowPayoffCell.textContent = entry.lowPayoff;
+            row.appendChild(lowPayoffCell);
+
+            var highPayoffCell = document.createElement('td');
+            highPayoffCell.textContent = entry.highPayoff;
+            row.appendChild(highPayoffCell);
+
+            tbody.appendChild(row);
+        });
+    }
+
+    // Call the function to populate the table on page load
+    window.onload = populateTable;
+</script>
+
+{% endblock %}

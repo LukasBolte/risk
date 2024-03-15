@@ -1,0 +1,42 @@
+{% block title %}
+Find Out or Not?
+{% endblock %}
+
+{% block content %}
+
+{{ if session.config.development }}
+    <button class="btn btn-danger otree-btn-next" style="float: right;">Skip</button>
+{{ endif }}
+
+<p>
+    Thank you! 
+</p>
+
+<p>
+    We have one more question before we tell you which, if any, of your decisions is implemented. (For DECISION 1 and 2, we will also tell you the outcome of the coin flip.)
+</p>
+
+<p>
+    In DECISIONS 2 and 3, you chose lotteries for two other participants. In one case, you will find out what the outcome of the lottery is; in the other case, you will not. 
+</p>
+
+<p>
+    As a general matter, do you prefer to find out the outcome of the lottery or not? Please indicate on the scale below. 
+</p>
+
+
+
+{{ formfield 'find_out' }}
+
+
+<button style="float: right" class="otree-btn-next btn btn-primary">Submit</button> &emsp;
+
+{% endblock %}
+
+{% block styles %}
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

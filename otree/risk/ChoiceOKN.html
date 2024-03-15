@@ -1,0 +1,124 @@
+{% block title %}
+DECISION 3: Choice
+{% endblock %}
+
+{% block content %}
+
+{{ if session.config.development }}
+    <button class="btn btn-danger otree-btn-next" style="float: right;">Skip</button>
+{{ endif }}
+
+<p>
+    Reminder:
+</p>
+<ul>
+    <li>
+        You are choosing a lottery for ANOTHER PARTICIPANT. 
+    </li>
+    <li>
+        Each side of the coin ("LOW" and "HIGH") is equally likely.
+    </li>
+    <li>
+        If DECISION 3 is implemented, the computer flips the coin, and we will pay the OTHER PARTICIPANT the payoff associated with the outcome of the lottery as a bonus. So choose wisely! 
+    </li>
+    <li>
+        In this case, we WILL NOT TELL YOU whether the coin came up "HIGH" or "LOW." Thus, you WILL NOT LEARN the OTHER PARTICIPANT’s payoff.
+    </li>
+</ul>
+
+<p>
+    Please choose a lottery from the lotteries below by clicking on the corresponding row.
+</p>
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <table id="lotteryTable" class="table">
+                <thead>
+                    <tr>
+                        <th>Lottery</th>
+                        <th>Payoff for "Low"</th>
+                        <th>Payoff for "High"</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Table body will be populated dynamically with JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<button style="float: right" class="btn btn-primary btn-large">Next</button>
+
+<input type="hidden" name="data_dummy" id="data_dummy" />
+
+{{ formfield_errors 'data_dummy' }}
+
+{% endblock %}
+
+{% block styles %}
+
+<style>
+    /* Define hover effect for table rows */
+    #lotteryTable tbody tr:hover {
+        background-color: #3f924c; /* Change this to your desired hover background color */
+    }
+    
+    .selected-row {
+        background-color: #3f924c; /* Change this to your desired background color */
+    }
+</style>
+
+{% endblock %}
+
+{% block scripts %}
+
+<script>
+    // Define the dollar values for each lottery
+    var lotteryData = {{ LOTTERY_DATA|safe }} 
+
+    // Function to populate the table with data
+    function populateTable() {
+        var tbody = document.querySelector('#lotteryTable tbody');
+
+        lotteryData.forEach(function(entry) {
+            var row = document.createElement('tr');
+            row.setAttribute('data-lottery', entry.lottery); // Set data-lottery attribute
+
+            var lotteryCell = document.createElement('td');
+            lotteryCell.textContent = entry.lottery;
+            row.appendChild(lotteryCell);
+
+            var lowPayoffCell = document.createElement('td');
+            lowPayoffCell.textContent = entry.lowPayoff;
+            row.appendChild(lowPayoffCell);
+
+            var highPayoffCell = document.createElement('td');
+            highPayoffCell.textContent = entry.highPayoff;
+            row.appendChild(highPayoffCell);
+
+            tbody.appendChild(row);
+
+            // Attach event listener to each row
+            row.addEventListener('click', function() {
+                // Remove 'selected-row' class from all rows
+                document.querySelectorAll('#lotteryTable tbody tr').forEach(function(tr) {
+                    tr.classList.remove('selected-row');
+                });
+                // Add 'selected-row' class to the clicked row
+                row.classList.add('selected-row');
+
+                console.log('Selected lottery:', entry.lottery);
+                document.getElementById('data_dummy').value = entry.lottery;
+                
+            });
+        });
+    }
+
+    // Call the function to populate the table on page load
+    window.onload = populateTable;
+</script>
+
+{% endblock %}

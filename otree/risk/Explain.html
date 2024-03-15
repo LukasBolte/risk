@@ -1,0 +1,38 @@
+{% block title %}
+Please Elaborate!
+{% endblock %}
+
+{% block content %}
+
+{{ if session.config.development }}
+    <button class="btn btn-danger otree-btn-next" style="float: right;">Skip</button>
+{{ endif }}
+
+<p>
+    Great! Thank you for your choice. 
+</p>
+
+<p>
+    Before you continue, please explain your decisions. 
+</p>
+
+
+You chose {{ text_ok }} for the OTHER PARTICIPANT when we WILL TELL YOU whether the coin came up "HIGH" or "LOW" (DECISION 2) and {{ text_okn }}  for the OTHER PARTICIPANT when we WILL NOT TELL YOU (DECISION 3).
+
+{{ formfield 'explainOK' }}
+
+You chose {{ text_s }}  for yourself (DECISION 1) and {{ text_ok }} for the OTHER PARTICIPANT when we WILL TELL YOU whether the coin came up "HIGH" or "LOW" (DECISION 2). 
+
+{{ formfield 'explainOKN' }}
+
+<button style="float: right" class="otree-btn-next btn btn-primary">Next</button> &emsp;
+
+{% endblock %}
+
+{% block styles %}
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}
